@@ -37,39 +37,79 @@ function Employeelist() {
 
   return (
     <>
-     <div>
-      <button onClick={()=>navigate("/addemployee")}> Add Employee </button>
-    </div>
-    <div>
-      <table>
-        <thead>
-            <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Action</th>
-            </tr>
-        </thead>
-        {!loading && (
-        <tbody>
-            {employees.map((employee)=>(
+     <div className="container">
+            <div className="header-actions">
+                <button 
+                    onClick={() => navigate("/addemployee")} 
+                    className="btn btn-primary"
+                >
+                    Add New Employee
+                </button>
+            </div>
 
-              <tr key={employee.id}>
-            <td>{employee.name}</td>
-            <td>{employee.phone}</td>
-            <td>{employee.email}</td>
-            <td>
-                {/* <button> */}
-                <a onClick={(e,id)=>editEmployee(e,employee.id)}><button>Edit</button></a>
-
-                {/* </button>  */}
-                <a onClick={(e,id)=>deleteEmployee(e,employee.id)}><button>Delete</button></a></td>
-          </tr>
-        ))}
-        </tbody>
-        )}
-      </table>
-    </div>
+            <div className="card fade-in">
+                <div className="card-header">
+                    <h1>Employee Directory</h1>
+                </div>
+                <div className="card-body" style={{ padding: 0 }}>
+                    {loading ? (
+                        <div className="loading">
+                            <div className="spinner"></div>
+                        </div>
+                    ) : employees.length === 0 ? (
+                        <div className="empty-state">
+                            <h3>No Employees Found</h3>
+                            <p>Start by adding your first employee to the system.</p>
+                            <button 
+                                onClick={() => navigate("/addemployee")} 
+                                className="btn btn-primary"
+                                style={{ marginTop: '1rem' }}
+                            >
+                                Add Employee
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="table-container">
+                            <table className="employee-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {employees.map((employee) => (
+                                        <tr key={employee.id}>
+                                            <td>{employee.name}</td>
+                                            <td>{employee.phone}</td>
+                                            <td>{employee.email}</td>
+                                            <td>
+                                                <div className="action-buttons">
+                                                    <button
+                                                        onClick={(e) => editEmployee(e, employee.id)}
+                                                        className="btn btn-warning"
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => deleteEmployee(e, employee.id)}
+                                                        className="btn btn-danger"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
     </>
   )
 }

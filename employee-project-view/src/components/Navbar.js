@@ -2,8 +2,8 @@ import React from 'react'
 
 function Navbar() {
   return (
-     <div className="App">
-      <h1>Employee Managment System</h1>
+     <div className="navbar">
+      <h1>Employee Management System</h1>
     </div>
   )
 }
